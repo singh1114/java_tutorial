@@ -1,5 +1,5 @@
 language: java
-java: openjdk8
+jdk: openjdk8
 
 install: true
 services:
