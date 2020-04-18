@@ -21,7 +21,7 @@ import javax.transaction.Transactional;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @Transactional
 public class SchoolControllerTest {
 
@@ -60,6 +60,9 @@ public class SchoolControllerTest {
     }
 
     private String createURLWithPort(String uri) {
+        System.out.println("port");
+        System.out.println(port);
+        System.out.println(uri);
         return "http://localhost:" + port + uri;
     }
 }
