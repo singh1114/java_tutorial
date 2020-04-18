@@ -49,7 +49,7 @@ public class SchoolControllerTest {
                 createURLWithPort("/schools"),
                 HttpMethod.GET, entity, String.class);
         System.out.println("response");
-        System.out.println(response);                
+        System.out.println(response);
         String expected = "[{\"id\":1,\"name\":\"First Location\",\"principle\":\"Mr. Ranvir\",\"address\":\"California\"}]";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
