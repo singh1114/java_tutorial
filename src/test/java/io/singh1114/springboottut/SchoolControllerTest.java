@@ -42,7 +42,8 @@ public class SchoolControllerTest {
         School testSchool = new School(1, "First Location", "Mr. Ranvir", "California");
         School newObj = repository.save(testSchool);
         System.out.println("Saved");
-        System.out.println(newObj);
+        System.out.println(newObj.getId());
+        System.out.println(newObj.getName());
 
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/schools"),
