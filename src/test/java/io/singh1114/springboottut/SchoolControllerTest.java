@@ -39,13 +39,13 @@ public class SchoolControllerTest {
     public void testGetSchoolData () throws JSONException {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/schools"),
-                HttpMethod.GET, entity, String.class);
-
         School testSchool = new School(1, "First Location", "Mr. Ranvir", "California");
         repository.save(testSchool);
 
+        ResponseEntity<String> response = restTemplate.exchange(
+                createURLWithPort("/schools"),
+                HttpMethod.GET, entity, String.class);
+                
         String expected = "[{\"id\":1,\"name\":\"First Location\",\"principle\":\"Mr. Ranvir\",\"address\":\"California\"}]";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
