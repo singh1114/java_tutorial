@@ -40,7 +40,9 @@ public class SchoolControllerTest {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
         School testSchool = new School(1, "First Location", "Mr. Ranvir", "California");
-        repository.save(testSchool);
+        School newObj = repository.save(testSchool);
+        System.out.println("Saved");
+        System.out.println(newObj);
 
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/schools"),
