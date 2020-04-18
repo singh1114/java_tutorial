@@ -48,8 +48,13 @@ public class SchoolControllerTest {
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/schools"),
                 HttpMethod.GET, entity, String.class);
+
+        ResponseEntity<String> response1 = restTemplate.exchange(
+                createURLWithPort("/schools/"),
+                HttpMethod.GET, entity, String.class);
         System.out.println("response");
         System.out.println(response);
+        System.out.println(response1);
         String expected = "[{\"id\":1,\"name\":\"First Location\",\"principle\":\"Mr. Ranvir\",\"address\":\"California\"}]";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
