@@ -33,6 +33,9 @@ public class SchoolControllerTest {
     @Autowired
     private SchoolRepository repository;
 
+    @Autowired
+    private SchoolRepository schoolRepository;
+
     TestRestTemplate restTemplate = new TestRestTemplate();
 
     HttpHeaders headers = new HttpHeaders();
@@ -57,8 +60,9 @@ public class SchoolControllerTest {
         System.out.println("response");
         System.out.println(response);
         System.out.println(response1);
+
         List<School> schools = new ArrayList<>();
-        repository.findAll()
+        schoolRepository.findAll()
                 .forEach(schools::add);
         System.out.println("schools in tests");
         System.out.println(schools);
