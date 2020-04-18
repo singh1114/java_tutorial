@@ -4,7 +4,7 @@ install: true
 services:
     - mysql
 before_install:
-    - mysql -e 'CREATE DATABASE IF NOT EXISTS myapp_test;'
+    - mysql -e 'CREATE DATABASE IF NOT EXISTS springtestguide;'
 script:
     - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
     - mvn test
