@@ -15,7 +15,7 @@ public class SchoolService {
         List<School> schools = new ArrayList<>();
         schoolRepository.findAll()
                 .forEach(schools::add);
-        System.out.println("schools");
+        System.out.println("schools are here");
         System.out.println(schools);
         return schools;
     }

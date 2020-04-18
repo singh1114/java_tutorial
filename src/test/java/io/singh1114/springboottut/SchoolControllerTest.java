@@ -18,6 +18,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
@@ -55,6 +57,11 @@ public class SchoolControllerTest {
         System.out.println("response");
         System.out.println(response);
         System.out.println(response1);
+        List<School> schools = new ArrayList<>();
+        repository.findAll()
+                .forEach(schools::add);
+        System.out.println("schools in tests");
+        System.out.println(schools);
         String expected = "[{\"id\":1,\"name\":\"First Location\",\"principle\":\"Mr. Ranvir\",\"address\":\"California\"}]";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
