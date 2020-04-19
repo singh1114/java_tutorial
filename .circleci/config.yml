@@ -6,8 +6,8 @@ jobs:
       - image: circleci/openjdk:8-jdk
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_ROOT_PASSWORD: 
-          MYSQL_DATABASE: springtestguide
+          MYSQL_ROOT_PASSWORD: rootpw
+          MYSQL_DATABASE: test_db
           MYSQL_USER: user
           MYSQL_PASSWORD: passw0rd
     steps:
@@ -28,6 +28,6 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install mysql*
-            mysql -h 127.0.0.1 -u root --execute="use springtestguide;"
+            mysql -h 127.0.0.1 -u user -ppassw0rd --execute="use test_db;"
       - run:
           mvn test
