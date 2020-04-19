@@ -3,7 +3,6 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/maven@0.0.12
       - image: circleci/mysql:8.0.4
         environment:
           MYSQL_ROOT_PASSWORD: rootpw
@@ -28,7 +27,10 @@ jobs:
           command: |
             sudo apt-get install default-mysql-client
             mysql -h 127.0.0.1 -u user -ppassw0rd test_db < sql-data/dummy.sql
-            mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Persons"    
+            mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Persons"  
+            
+orbs:
+  maven: circleci/maven@0.0.12
       
 workflows:
   maven_test:
