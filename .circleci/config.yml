@@ -12,6 +12,8 @@ jobs:
           MYSQL_DATABASE: springtestguide
           MYSQL_USER: user
           MYSQL_PASSWORD: passw0rd
+    steps:
+      - checkout
 
 workflows:
   maven_test:
