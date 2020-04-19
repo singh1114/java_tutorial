@@ -6,7 +6,7 @@ jobs:
       - image: circleci/openjdk:8-jdk
       - image: circleci/mysql:8.0.4
         environment:
-          MYSQL_ROOT_PASSWORD: rootpw
+          MYSQL_ROOT_PASSWORD: 
           MYSQL_DATABASE: springtestguide
           MYSQL_USER: user
           MYSQL_PASSWORD: passw0rd
@@ -23,5 +23,10 @@ jobs:
               sleep 1
             done
             echo Failed waiting for MySQL && exit 1 
+      - run:
+          name: Install MySQL CLI; Import dummy data; run an example query
+          command: |
+            sudo apt-get install default-mysql-client
+            mysql -h 127.0.0.1 -u root --execute="use springtestguide;"
       - run:
           mvn test
