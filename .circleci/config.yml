@@ -14,8 +14,4 @@ jobs:
           MYSQL_PASSWORD: passw0rd
     steps:
       - checkout
-
-workflows:
-  maven_test:
-    jobs:
-      - maven/test # checkout, build, test, and upload test results
+      - mvn test
