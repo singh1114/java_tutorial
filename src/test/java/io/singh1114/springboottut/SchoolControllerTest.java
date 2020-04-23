@@ -1,52 +1,49 @@
 package io.singh1114.springboottut;
 
-import io.singh1114.springboottut.school.School;
-import io.singh1114.springboottut.school.SchoolRepository;
 import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.transaction.Transactional;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ActiveProfiles("test")
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
 public class SchoolControllerTest {
 
     @LocalServerPort
     private int port;
 
-    @Autowired
-    private SchoolRepository repository;
-
-    TestRestTemplate restTemplate = new TestRestTemplate();
-
-    HttpHeaders headers = new HttpHeaders();
-
     @Test
     public void testGetSchoolData () throws JSONException {
+        HttpHeaders postHeaders = new HttpHeaders();
+        postHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        String requestJson = "{\"name\":\"School 1\", \"principle\":\"Mr. Charles\", \"address\":\"California\"}";
+        HttpEntity<String> schoolPostEntity = new HttpEntity<String>(requestJson, postHeaders);
+
+
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+
+        ResponseEntity<String> addSchoolResponse = restTemplate.exchange(
+                createURLWithPort("/school"),
+                HttpMethod.POST, schoolPostEntity, String.class);
+
+        System.out.println("schools: " + addSchoolResponse.getBody());
+
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/schools"),
                 HttpMethod.GET, entity, String.class);
 
-        School testSchool = new School(1, "First Location", "Mr. Ranvir", "California");
-        repository.save(testSchool);
-
-        String expected = "[{\"id\":1,\"name\":\"First Location\",\"principle\":\"Mr. Ranvir\",\"address\":\"California\"}]";
+        String expected = "[{\"id\":1,\"name\":\"School 1\",\"principle\":\"Mr. Charles\",\"address\":\"California\"}]";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
 
